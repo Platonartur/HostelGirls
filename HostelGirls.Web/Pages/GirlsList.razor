@@ -1,0 +1,127 @@
+﻿@page "/"
+@inherits GirlsListBase
+<head>
+    <title>Telochki</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+
+        a {
+            color: red; /* Цвет ссылок */
+        }
+
+            A:visited {
+                color: #cecece; /* Цвет посещенных ссылок */
+            }
+
+            A:active {
+                color: #ffff00; /* Цвет активных ссылок */
+            }
+
+        .fig {
+            text-align: center; /* Выравнивание по центру */
+        }
+
+        /*ul {
+            list-style: none;
+        }*/
+
+        /*ul li:before {
+                content: "";
+                font-size: 170%; or whatever
+                padding-right: 5px;
+            }
+        */
+
+    </style>
+    <style>
+        .header-h1 {
+            text-align: center;
+            margin-bottom: .5rem;
+        }
+
+        /*.header-h1 h1 {
+                display: inline-block;
+                background: #0000CD; #0097a7
+                color: #FFFFFF;
+                margin-bottom: 0;
+                padding: .5rem 1rem .625rem 1rem;
+                font-size: 2rem;
+                text-transform: uppercase;
+                border-radius: 30px;
+            }
+                */
+    </style>
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+
+
+
+
+
+<link href="/css/styles.css" rel="stylesheet" type="text/css">
+<h3>GirlsList</h3>
+
+<div>
+    <h1>@DisplayTime()</h1>
+    @foreach (var teen in teens)
+    {
+        <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
+            <div class="card-header">
+                <h3><a href="@teen.Id">@teen.Name</a> </h3>               
+                <p><img class="card-img-top" src="@teen.Img"></p>   
+                <div class="card-footer text-center">
+                    <a href="#" bgcolor="red" class="btn-primary m-1">View</a>
+                    <a href="#" class="btn-primary m-1">Edit</a>
+                    <a href="#" class="btn-primary m-1">Delete</a>
+                    <button> lox</button>
+                </div>
+</div>
+        </div>
+    };
+</div>
+<asp:ImageButton AccessKey="string"
+                 AlternateText="string"
+                 BackColor="color name|#dddddd"
+                 BorderColor="color name|#dddddd"
+                 BorderStyle="NotSet|None|Dotted|Dashed|Solid|Double|Groove|Ridge|
+        Inset|Outset"
+                 BorderWidth="size"
+                 CausesValidation="True|False"
+                 CommandArgument="string"
+                 CommandName="string"
+                 CssClass="string"
+                 DescriptionUrl="uri"
+                 Enabled="True|False"
+                 EnableTheming="True|False"
+                 EnableViewState="True|False"
+                 ForeColor="color name|#dddddd"
+                 Height="size"
+                 ID="string"
+                 ImageAlign="NotSet|Left|Right|Baseline|Top|Middle|Bottom|
+        AbsBottom|AbsMiddle|TextTop"
+                 ImageUrl="uri"
+                 OnClick="Click event handler"
+                 OnClientClick="string"
+                 OnCommand="Command event handler"
+                 OnDataBinding="DataBinding event handler"
+                 OnDisposed="Disposed event handler"
+                 OnInit="Init event handler"
+                 OnLoad="Load event handler"
+                 OnPreRender="PreRender event handler"
+                 OnUnload="Unload event handler"
+                 PostBackUrl="uri"
+                 runat="server"
+                 SkinID="string"
+                 Style="string"
+                 TabIndex="integer"
+                 ToolTip="string"
+                 ValidationGroup="string"
+                 Visible="True|False"
+                 Width="size" />
+
+
+
