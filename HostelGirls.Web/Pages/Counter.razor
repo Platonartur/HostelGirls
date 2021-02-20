@@ -1,0 +1,125 @@
+﻿@page "/counter"
+@inherits GirlsListBase
+@using Microsoft.AspNetCore.Components.Web
+@inject IJSRuntime JSRuntime
+
+<h1>JS Interop</h1>
+
+<h3>Create alert</h3>
+
+<button class="btn " @onclick="ShowAlert"> <img alt="" src="@Randomize().Img" style="vertical-align:middle" />Show alert</button>
+<br />
+
+<h3>Create alert</h3>
+
+<input @bind="questionText" />
+
+<button class="btn btn-warning" @onclick="AskQuestion">Ask question</button>
+
+
+<div>
+    The answer was: <span id="answerSpan"></span>
+</div>
+
+
+
+
+<h3>Give me random int</h3>
+
+<div>
+    The random number is: <span id="ranomNumberSpan"></span>
+</div>
+
+<button class="btn btn-info" onclick="giveMeRandomInt().Img"> Randomize</button>
+
+@code{
+
+    string questionText = string.Empty;
+    ElementReference InputToFocus;
+
+
+
+    async Task AskQuestion()
+    {
+        var response = await JSRuntime.InvokeAsync<string>("createPrompt", questionText);
+        await JSRuntime.InvokeVoidAsync("setElementTextById", "answerSpan", response);
+    }
+
+    async Task ShowAlert()
+    {
+        await JSRuntime.InvokeVoidAsync("createAlert");
+    }
+
+    [JSInvokable]
+    async Task<Teen> GenerateRandomInt()
+    {
+        var rand = new Random();
+        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+        var newteens = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+        void Mouse_Click(MouseEventArgs e)
+        {
+            Task.FromResult(newteens.Number++);
+        }
+        async Task IncrementCount(MouseEventArgs e)
+        {
+            Task.FromResult(newteens.Number++);
+        }
+        return newteens;
+    }
+
+    public Task<Teen> Increment1(MouseEventArgs e)
+    {
+        var rand = new Random();
+        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+        var newteens = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+        newteens.Number++;
+        return Task.FromResult(newteens);
+    }
+
+    [JSInvokable]
+    public Task<Teen> GenerateRandomTeen()
+    {
+        return Task.FromResult(Randomize());
+    }
+
+
+}
+
+@code{  
+    Teen Randomize()
+    {
+        var rand = new Random();
+        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+        var newteens = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+        
+        newteens.Number++;
+                
+        return newteens;
+    }
+    Teen Randomize1()
+    {
+        var rand = new Random();
+        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+        return teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+    }
+
+
+
+    private int currentCount = 0;
+
+    private async Task IncrementCount(MouseEventArgs e)
+    {       
+        await Task.Delay(500);
+        if (e.CtrlKey == true) currentCount = currentCount + 10;
+        else currentCount++;
+    }
+}
+
+
+
+
+
+
+@code{
+
+}

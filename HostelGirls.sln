@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostelGirls", "GirlsRanking
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostelGirls.Web", "HostelGirls.Web\HostelGirls.Web.csproj", "{61D3BCF5-815E-48C1-A8D6-0A528FD3C943}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostelGirls.Api", "HostelGirls.Api\HostelGirls.Api.csproj", "{44063847-20E3-4001-997B-D0DE0112DEA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{61D3BCF5-815E-48C1-A8D6-0A528FD3C943}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61D3BCF5-815E-48C1-A8D6-0A528FD3C943}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61D3BCF5-815E-48C1-A8D6-0A528FD3C943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44063847-20E3-4001-997B-D0DE0112DEA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44063847-20E3-4001-997B-D0DE0112DEA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44063847-20E3-4001-997B-D0DE0112DEA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44063847-20E3-4001-997B-D0DE0112DEA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

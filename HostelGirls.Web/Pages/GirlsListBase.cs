@@ -54,7 +54,7 @@ namespace HostelGirls.Web.Pages
             {
                 new Teen()
                 {
-                    Number = 1,
+                    Number = 0,
                     Id = "https://vk.com/id412379471",
                     Name = "Aurora Redfield",
                     Img = "images/Amaliya.jpg",
@@ -62,7 +62,7 @@ namespace HostelGirls.Web.Pages
                 },
                 new Teen()
                 {
-                    Number = 2,
+                    Number = 0,
                     Id = "https://vk.com/lellap",
                     Name = "Elena Popovskikh",
                     Img = "images/Sofia_kolotilina.jpg",
@@ -70,16 +70,24 @@ namespace HostelGirls.Web.Pages
                 },
                 new Teen()
                 {
-                     Number = 3,
+                     Number = 0,
                      Id = "https://vk.com/die_young_my_baby",
                      Name = "Anya Shelk",
                      Img = "images/TopTelka.jpg",
                      ImgName = "images/TopTelka.jpg".Remove("images/TopTelka.jpg".Length-4)
+                },
+                new Teen()
+                {
+                    Number = 0,
+                    Id="",
+                    Img="images/DaryaAfanasieva.jpg",
+                    ImgName="images/DaryaAfanasieva.jpg".Remove("images/DaryaAfanasieva.jpg".Length-4)
                 }
             };
         }    
+
         private void Voting()
-        {
+        {         
             //var rand = new Random();
             //int v = rand.Next(teens.SelectMany);
             //Random r = new Random();

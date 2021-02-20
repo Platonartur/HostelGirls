@@ -1,5 +1,6 @@
 ﻿@page "/voting"
 @inherits GirlsListBase
+@inject IJSRuntime JSRuntime
 <h3>Voting</h3>
 
 
@@ -72,102 +73,80 @@
 <link href="/css/styles.css" rel="stylesheet" type="text/css">
 
 
-
-
-
-
-
-
-
-
-@*@code {
-    void Random()
-    {
-        var random = new Random();
-        var teens1 = teens.OrderBy(order => random.Next());
-        foreach (var teen in teens)
-        {
-
-        }
-    }
-    public Random Rew()
-    {
-        var random = new Random();
-        var teens1 = teens.OrderBy(order => random.Next());
-
-    }
-}*@
 <div>
-    @for (int i = 0; i < 100; i++)
-    {
-        //IEnumerator ie = teens.GetEnumerator();
-        var rand = new Random();
-        //LoadTeens(random);
-        //int x = random.Next(1,13);
-        //var teens1 = teens.ToList();
-        //var teens2 = teens1.OrderBy(order => random.Next());
 
-        //OnInitializedAsync().Id;
-        //Random rand = new Random();
-        //int filename = rand.Next(1, 13);
-        //string image = teen.ImgName + ".jpg";
-        var teens1 = teens.OrderBy(order => rand.Next());
-        string Randomize()
-        {
-            foreach (var teen in teens1)
-            {
-                return teen.Img;
-            }
-            return "xyi";
-        }
-        foreach (var teen in teens1)
-        {
-            <div>
-                <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
-                    <div class="card-header">
-                        <h3><a href="@teen.Id">@teen.Name</a> </h3>
-                        <p>
-                            <input type="image" img class="card-img-top" src="@teen.Img"
-                                   onclick="">
-                        </p>
-                        <div class="card-footer text-center">
-                            <a href="#" bgcolor="red" class="btn-primary m-1">  View</a>
-                            <a href="#" class="btn-primary m-1">Edit</a>
-                            <a href="#" class="btn-primary m-1">Delete</a>
-                            <button> lox</button>
-                            imagebutton
-                        </div>
-                    </div>
+
+    <div>
+        <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
+            <div class="card-header">
+                <h3><a href="@Randomize().Id">@Randomize().Name</a> </h3>
+                <p>
+                    <button @onclick="ShowAlert"> <img alt="" src="@Randomize().Img" style="vertical-align:middle" />Show alert</button>
+                </p>
+                <p>Current voting: @Randomize().Number</p>
+                <div class="card-footer text-center">
+                    <a href="#" bgcolor="red" class="btn-primary m-1">  View</a>
+                    <a href="#" class="btn-primary m-1">Edit</a>
+                    <a href="#" class="btn-primary m-1">Delete</a>
+
+                    imagebutton
                 </div>
             </div>
-        }
+        </div>
+    </div>
 
-        @*<div>
-                    <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
-                        <div class="card-header">
-                            <h3><a href="@teen.Id">@teen.Name</a> </h3>
-                            <p><input type="image" img class="card-img-top" src="@teen.Img"
-                                      onclick="@Randomize()"></p>
-                            <div class="card-footer text-center">
-                                <a href="#" bgcolor="red" class="btn-primary m-1">  View</a>
-                                <a href="#" class="btn-primary m-1">Edit</a>
-                                <a href="#" class="btn-primary m-1">Delete</a>
-                                <button> lox</button>
-                                imagebutton
-                            </div>
-                        </div>
-                    </div>
-            </div>*@
-        //<div> <a href="#"></a></div>
-        //for (int)
-        //var Image = new Image(path + filename + ".jpg");
-        //   <div>
-        //       <a href="#">@</a>
-        //   </div>
-    }
+
+
 </div>
 
 
+@code{
+    
+    Teen Randomize()
+    {        
+        var rand = new Random();
+        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+        var newteen = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+        newteen.Number++;        
+        return teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+
+    }
+    Teen Randomize1()
+    {
+        var rand = new Random();
+        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+        return teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+    }
+    private void IncrementCount()
+    {
+
+    }
+}
+
+@code{
+
+    string questionText = string.Empty;
+    ElementReference InputToFocus;
+
+    private int currentCount = 0;
+
+    async Task AskQuestion()
+    {
+        var response = await JSRuntime.InvokeAsync<string>("createPrompt", questionText);
+        await JSRuntime.InvokeVoidAsync("setElementTextById", "answerSpan", response);
+    }
+
+    async Task ShowAlert(MouseEventArgs e)
+    {
+        Randomize().Number++;
+
+        await JSRuntime.InvokeVoidAsync("createAlert");
+    }
+    private async void IncrementCount(MouseEventArgs e)
+    {
+        Randomize().Number++;
+    }
+}
 
 
 
@@ -194,8 +173,9 @@
 
 
 
-
-
+@*<button> <img src="@Randomize().Img" img class="card-img-top" /> lox </button>
+    <input type="image" img class="card-img-top" src="@Randomize().Img"
+           onclick="@Randomize().Img">*@
 
 
 
@@ -214,10 +194,61 @@
 
 
 @*<div>
+        @for (int i = 0; i < 100; i++)
+        {
+            //IEnumerator ie = teens.GetEnumerator();
+            var random = new Random();
+            //LoadTeens(random);
+            //int x = random.Next(1,13);
+            //var teens1 = teens.ToList();
+            //var teens2 = teens1.OrderBy(order => random.Next());
+
+            //OnInitializedAsync().Id;
+            //Random rand = new Random();
+            //int filename = rand.Next(1, 3);
+            //string image = teen.ImgName + ".jpg";
+
+            var teens1 = teens.OrderBy(order => random.Next());
+            <div>
+                @foreach (var teen in teens1)
+                {
+                    <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
+                        <div class="card-header">
+                            <h3><a href="@teen.Id">@teen.Name</a> </h3>
+                            <p><input type="image" img class="card-img-top" src="@teen.Img" onclick="window.location.href = '@teen.Id';"></p>
+                            <div class="card-footer text-center">
+                                <a href="#" bgcolor="red" class="btn-primary m-1">  View</a>
+                                <a href="#" class="btn-primary m-1">Edit</a>
+                                <a href="#" class="btn-primary m-1">Delete</a>
+                                <button> lox</button>
+                                imagebutton
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            //<div> <a href="#"></a></div>
+            //for (int)
+            //var Image = new Image(path + filename + ".jpg");
+            //   <div>
+            //       <a href="#">@</a>
+            //   </div>
+        }
+    </div>*@
+
+
+
+
+
+
+
+
+
+<!--<div>
     @for (int i = 0; i < 100; i++)
     {
         //IEnumerator ie = teens.GetEnumerator();
-        var random = new Random();
+        var rand = new Random();
         //LoadTeens(random);
         //int x = random.Next(1,13);
         //var teens1 = teens.ToList();
@@ -225,33 +256,73 @@
 
         //OnInitializedAsync().Id;
         //Random rand = new Random();
-        //int filename = rand.Next(1, 3);
+        //int filename = rand.Next(1, 13);
         //string image = teen.ImgName + ".jpg";
+        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+        //var teens1 = teens.ToArray();
+        var rnd = new Random();
+        Teen Randomize()
+        {
+            return teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+        }
 
-        var teens1 = teens.OrderBy(order => random.Next());
         <div>
-            @foreach (var teen in teens1)
-            {
-                <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
-                    <div class="card-header">
-                        <h3><a href="@teen.Id">@teen.Name</a> </h3>
-                        <p><input type="image" img class="card-img-top" src="@teen.Img" onclick="window.location.href = '@teen.Id';"></p>
-                        <div class="card-footer text-center">
-                            <a href="#" bgcolor="red" class="btn-primary m-1">  View</a>
-                            <a href="#" class="btn-primary m-1">Edit</a>
-                            <a href="#" class="btn-primary m-1">Delete</a>
-                            <button> lox</button>
-                            imagebutton
-                        </div>
+            <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
+                <div class="card-header">
+                    <h3><a href="@Randomize().Id">@Randomize().Name</a> </h3>
+                    <p>
+                        <input type="image" img class="card-img-top" src="@Randomize().Img"
+                               onclick="Randomize().Img">
+                    </p>
+                    <div class="card-footer text-center">
+                        <a href="#" bgcolor="red" class="btn-primary m-1">  View</a>
+                        <a href="#" class="btn-primary m-1">Edit</a>
+                        <a href="#" class="btn-primary m-1">Delete</a>
+                        <button> lox</button>
+                        imagebutton
                     </div>
                 </div>
-            }
+            </div>
+        </div>-->
+@*<div>
+    <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
+        <div class="card-header">
+            <h3><a href="@teen.Id">@teen.Name</a> </h3>
+            <p>
+                <input type="image" img class="card-img-top" src="@teen.Img"
+                       onclick="@Randomize()">
+            </p>
+            <div class="card-footer text-center">
+                <a href="#" bgcolor="red" class="btn-primary m-1">  View</a>
+                <a href="#" class="btn-primary m-1">Edit</a>
+                <a href="#" class="btn-primary m-1">Delete</a>
+                <button> lox</button>
+                imagebutton
+            </div>
         </div>
-        //<div> <a href="#"></a></div>
+    </div>
+</div><div>
+    <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
+        <div class="card-header">
+            <h3><a href="@teen.Id"></a></h3>
+            <p>
+                <input type="image" img class="card-img-top" src="@teen.Img"
+                       onclick="@Randomize()">
+            </p>
+            <div class="card-footer text-center">
+                <a href="#" bgcolor="red" class="btn-primary m-1"></a>
+                <a href="#" class="btn-primary m-1"></a>
+                <a href="#" class="btn-primary m-1"></a>
+                <button></button>
+            </div>
+        </div>
+    </div>
+</div>*@
+<!--//<div> <a href="#"></a></div>
         //for (int)
         //var Image = new Image(path + filename + ".jpg");
         //   <div>
         //       <a href="#">@</a>
         //   </div>
     }
-</div>*@
+</div>-->
