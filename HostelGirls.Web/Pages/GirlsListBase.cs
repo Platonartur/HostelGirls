@@ -49,7 +49,7 @@ namespace HostelGirls.Web.Pages
 
         }
         protected void LoadTeens()
-        {
+        {            
             teens = new List<Teen>
             {
                 new Teen()
@@ -58,7 +58,8 @@ namespace HostelGirls.Web.Pages
                     Id = "https://vk.com/id412379471",
                     Name = "Aurora Redfield",
                     Img = "images/Amaliya.jpg",
-                    ImgName = "images/Amaliya.jpg".Remove("images/Amaliya.jpg".Length-4)
+                    ImgName = "images/Amaliya.jpg".Remove("images/Amaliya.jpg".Length-4),
+                    TeenId = 1
                 },
                 new Teen()
                 {
@@ -66,7 +67,8 @@ namespace HostelGirls.Web.Pages
                     Id = "https://vk.com/lellap",
                     Name = "Elena Popovskikh",
                     Img = "images/Sofia_kolotilina.jpg",
-                    ImgName = "images/Sofia_kolotilina.jpg".Remove("images/Sofia_kolotilina.jpg".Length-4)
+                    ImgName = "images/Sofia_kolotilina.jpg".Remove("images/Sofia_kolotilina.jpg".Length-4),
+                    TeenId = 2
                 },
                 new Teen()
                 {
@@ -74,14 +76,17 @@ namespace HostelGirls.Web.Pages
                      Id = "https://vk.com/die_young_my_baby",
                      Name = "Anya Shelk",
                      Img = "images/TopTelka.jpg",
-                     ImgName = "images/TopTelka.jpg".Remove("images/TopTelka.jpg".Length-4)
+                     ImgName = "images/TopTelka.jpg".Remove("images/TopTelka.jpg".Length-4),
+                     TeenId = 3
                 },
                 new Teen()
                 {
                     Number = 0,
-                    Id="",
+                    Id="https://vk.com/id327657095",
+                    Name="katerina Dershavina",
                     Img="images/DaryaAfanasieva.jpg",
-                    ImgName="images/DaryaAfanasieva.jpg".Remove("images/DaryaAfanasieva.jpg".Length-4)
+                    ImgName="images/DaryaAfanasieva.jpg".Remove("images/DaryaAfanasieva.jpg".Length-4),
+                    TeenId = 4
                 }
             };
         }    

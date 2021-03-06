@@ -1,11 +1,11 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Text;
 
-namespace GirlsRanking.Girls
+namespace TeenAccessLibrary.Models
 {
-    public class Teen
+    class TeenModel
     {
-        [Key]
         public int TeenId { get; set; }
         public int Number { get; set; }
         public string Id { get; set; }
