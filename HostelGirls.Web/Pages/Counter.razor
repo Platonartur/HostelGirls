@@ -88,13 +88,20 @@
 @code{  
     Teen Randomize()
     {
-        var rand = new Random();
-        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
-        var newteens = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
-        
-        newteens.Number++;
-                
-        return newteens;
+        if (teens == null)
+        {
+            return null;
+        }
+        else
+        {
+            var rand = new Random();
+            var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+            var newteens = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+
+            newteens.Number++;
+
+            return newteens;
+        }
     }
     Teen Randomize1()
     {
@@ -105,14 +112,14 @@
 
 
 
-    private int currentCount = 0;
+    //private int currentCount = 0;
 
-    private async Task IncrementCount(MouseEventArgs e)
-    {       
-        await Task.Delay(500);
-        if (e.CtrlKey == true) currentCount = currentCount + 10;
-        else currentCount++;
-    }
+    //private async Task IncrementCount(MouseEventArgs e)
+    //{
+    //    await Task.Delay(500);
+    //    if (e.CtrlKey == true) currentCount = currentCount + 10;
+    //    else currentCount++;
+    //}
 }
 
 

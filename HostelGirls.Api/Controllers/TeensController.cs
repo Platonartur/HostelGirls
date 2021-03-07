@@ -14,6 +14,8 @@ namespace HostelGirls.Api.Controllers
     public class TeensController : ControllerBase
     {
         private readonly ITeenRepository teenRepository;
+        
+
         public TeensController(ITeenRepository teenRepository)
         {
             this.teenRepository = teenRepository;
@@ -51,5 +53,28 @@ namespace HostelGirls.Api.Controllers
                     "Error retrieving data from the database");
             }
         }
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Teen>> UpdateTeen(int id, Teen teen)
+        {
+            try
+            {
+                if (id != teen.TeenId)
+                    return BadRequest("Teen ID mismatch");
+
+                var teenToUpdate = await teenRepository.GetTeen(id);
+
+                if (teenToUpdate == null)
+                    return NotFound($"Employee with Id = {id} not found");
+
+                return await teenRepository.UpdateTeen(teen);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error updating data");
+            }
+        }
+
+        
     }
 }

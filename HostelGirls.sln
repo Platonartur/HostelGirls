@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostelGirls", "GirlsRanking
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostelGirls.Web", "HostelGirls.Web\HostelGirls.Web.csproj", "{61D3BCF5-815E-48C1-A8D6-0A528FD3C943}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostelGirls.Api", "HostelGirls.Api\HostelGirls.Api.csproj", "{535171BD-8AC1-4EF8-8BCA-F467185BE37B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostelGirls.Api", "HostelGirls.Api\HostelGirls.Api.csproj", "{535171BD-8AC1-4EF8-8BCA-F467185BE37B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

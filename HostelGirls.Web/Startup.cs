@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Syncfusion.Blazor;
-
+using HostelGirls.Web.Services;
 
 namespace HostelGirls.Web
 {
@@ -28,8 +28,11 @@ namespace HostelGirls.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddServerSideBlazor();   
-            
+            services.AddServerSideBlazor();
+            services.AddHttpClient<ITeenService, TeenService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44369/");
+            });
             services.AddSyncfusionBlazor();
             
         }
