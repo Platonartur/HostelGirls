@@ -1,6 +1,9 @@
-﻿@page "/voting"
-@inherits GirlsListBase
-@inject IJSRuntime JSRuntime
+﻿@inherits EditTeenBase
+@using Microsoft.AspNetCore.Components.Web
+
+@page "/voting/"
+@*@inherits GirlsListBase
+    @inject IJSRuntime JSRuntime*@
 <h3>Voting</h3>
 
 
@@ -8,145 +11,82 @@
 
 
 
-<head>
-    <title>Telochki</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
 
 
-        a {
-            color: red; /* Цвет ссылок */
-        }
-
-            A:visited {
-                color: #cecece; /* Цвет посещенных ссылок */
-            }
-
-            A:active {
-                color: #ffff00; /* Цвет активных ссылок */
-            }
-
-        .fig {
-            text-align: center; /* Выравнивание по центру */
-        }
-
-        /*ul {
-            list-style: none;
-        }*/
-
-        /*ul li:before {
-                content: "";
-                font-size: 170%; or whatever
-                padding-right: 5px;
-            }
-        */
-
-    </style>
-    <style>
-        .header-h1 {
-            text-align: center;
-            margin-bottom: .5rem;
-        }
-
-        /*.header-h1 h1 {
-                display: inline-block;
-                background: #0000CD; #0097a7
-                color: #FFFFFF;
-                margin-bottom: 0;
-                padding: .5rem 1rem .625rem 1rem;
-                font-size: 2rem;
-                text-transform: uppercase;
-                border-radius: 30px;
-            }
-                */
-    </style>
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
+@*<div>
 
 
+        <div>
+            <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
+                <div class="card-header">
+                    <h3><a href="@Randomize().Id">@Randomize().Name</a> </h3>
+                    <p>
+                        <button @onclick="ShowAlert"> <img alt="" src="@Randomize().Img" style="vertical-align:middle" />Show alert</button>
+                    </p>
+                    <p>Current voting: @Randomize().Number</p>
+                    <div class="card-footer text-center">
+                        <a href="#" bgcolor="red" class="btn-primary m-1">  View</a>
+                        <a href="#" class="btn-primary m-1">Edit</a>
+                        <a href="#" class="btn-primary m-1">Delete</a>
 
-
-
-
-<link href="/css/styles.css" rel="stylesheet" type="text/css">
-
-
-<div>
-
-
-    <div>
-        <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
-            <div class="card-header">
-                <h3><a href="@Randomize().Id">@Randomize().Name</a> </h3>
-                <p>
-                    <button @onclick="ShowAlert"> <img alt="" src="@Randomize().Img" style="vertical-align:middle" />Show alert</button>
-                </p>
-                <p>Current voting: @Randomize().Number</p>
-                <div class="card-footer text-center">
-                    <a href="#" bgcolor="red" class="btn-primary m-1">  View</a>
-                    <a href="#" class="btn-primary m-1">Edit</a>
-                    <a href="#" class="btn-primary m-1">Delete</a>
-
-                    imagebutton
+                        imagebutton
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 
-</div>
+    </div>*@
 
 
-@code{
-    
-    Teen Randomize()
-    {        
-        var rand = new Random();
-        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
-        var newteen = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
-        newteen.Number++;        
-        return teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+@*@code{
 
-    }
-    Teen Randomize1()
-    {
-        var rand = new Random();
-        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
-        return teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
-    }
-    private void IncrementCount()
-    {
+        Teen Randomize()
+        {
+            var rand = new Random();
+            var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+            var newteen = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+            newteen.Number++;
+            return teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
 
-    }
-}
+        }
+        Teen Randomize1()
+        {
+            var rand = new Random();
+            var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+            return teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+        }
+        private void IncrementCount()
+        {
 
-@code{
-
-    string questionText = string.Empty;
-    ElementReference InputToFocus;
-
-    private int currentCount = 0;
-
-    async Task AskQuestion()
-    {
-        var response = await JSRuntime.InvokeAsync<string>("createPrompt", questionText);
-        await JSRuntime.InvokeVoidAsync("setElementTextById", "answerSpan", response);
+        }
     }
 
-    async Task ShowAlert(MouseEventArgs e)
-    {
-        Randomize().Number++;
+    @code{
 
-        await JSRuntime.InvokeVoidAsync("createAlert");
-    }
-    private async void IncrementCount(MouseEventArgs e)
-    {
-        Randomize().Number++;
-    }
-}
+        string questionText = string.Empty;
+        ElementReference InputToFocus;
+
+        private int currentCount = 0;
+
+        async Task AskQuestion()
+        {
+            var response = await JSRuntime.InvokeAsync<string>("createPrompt", questionText);
+            await JSRuntime.InvokeVoidAsync("setElementTextById", "answerSpan", response);
+        }
+
+        async Task ShowAlert(MouseEventArgs e)
+        {
+            Randomize().Number++;
+
+            await JSRuntime.InvokeVoidAsync("createAlert");
+        }
+        private async void IncrementCount(MouseEventArgs e)
+        {
+            Randomize().Number++;
+        }
+    }*@
 
 
 
@@ -244,85 +184,52 @@
 
 
 
-<!--<div>
-    @for (int i = 0; i < 100; i++)
+
+
+
+@*@page "/editteen/{id}"
+
+@inherits EditTeenBase
+@code{
+    async Task<Teen> Randomize()
     {
-        //IEnumerator ie = teens.GetEnumerator();
         var rand = new Random();
-        //LoadTeens(random);
-        //int x = random.Next(1,13);
-        //var teens1 = teens.ToList();
-        //var teens2 = teens1.OrderBy(order => random.Next());
+        var tempList = TeensStatic.Teens.ToList() ?? (await TeenService.GetTeens()).ToList();
+        int teensCount = tempList.Count() - 1;
 
-        //OnInitializedAsync().Id;
-        //Random rand = new Random();
-        //int filename = rand.Next(1, 13);
-        //string image = teen.ImgName + ".jpg";
-        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
-        //var teens1 = teens.ToArray();
-        var rnd = new Random();
-        Teen Randomize()
-        {
-            return teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
-        }
 
-        <div>
-            <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
-                <div class="card-header">
-                    <h3><a href="@Randomize().Id">@Randomize().Name</a> </h3>
-                    <p>
-                        <input type="image" img class="card-img-top" src="@Randomize().Img"
-                               onclick="Randomize().Img">
-                    </p>
-                    <div class="card-footer text-center">
-                        <a href="#" bgcolor="red" class="btn-primary m-1">  View</a>
-                        <a href="#" class="btn-primary m-1">Edit</a>
-                        <a href="#" class="btn-primary m-1">Delete</a>
-                        <button> lox</button>
-                        imagebutton
-                    </div>
-                </div>
-            </div>
-        </div>-->
-@*<div>
-    <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
-        <div class="card-header">
-            <h3><a href="@teen.Id">@teen.Name</a> </h3>
-            <p>
-                <input type="image" img class="card-img-top" src="@teen.Img"
-                       onclick="@Randomize()">
-            </p>
-            <div class="card-footer text-center">
-                <a href="#" bgcolor="red" class="btn-primary m-1">  View</a>
-                <a href="#" class="btn-primary m-1">Edit</a>
-                <a href="#" class="btn-primary m-1">Delete</a>
-                <button> lox</button>
-                imagebutton
-            </div>
-        </div>
-    </div>
-</div><div>
-    <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
-        <div class="card-header">
-            <h3><a href="@teen.Id"></a></h3>
-            <p>
-                <input type="image" img class="card-img-top" src="@teen.Img"
-                       onclick="@Randomize()">
-            </p>
-            <div class="card-footer text-center">
-                <a href="#" bgcolor="red" class="btn-primary m-1"></a>
-                <a href="#" class="btn-primary m-1"></a>
-                <a href="#" class="btn-primary m-1"></a>
-                <button></button>
-            </div>
-        </div>
-    </div>
-</div>*@
-<!--//<div> <a href="#"></a></div>
-        //for (int)
-        //var Image = new Image(path + filename + ".jpg");
-        //   <div>
-        //       <a href="#">@</a>
-        //   </div>
+        var teensC = tempList[rand.Next(0, teensCount)];
+
+        return teensC;
     }
-</div>-->
+
+    [JSInvokable]
+    public async Task<Teen> GenerateRandomTeen()
+    {
+        return await Randomize();
+    }
+    public async Task<int> RandomNumber()
+    {
+        return Randomize().Result.Number++;
+    }
+}*@
+
+
+
+@*<EditForm Model="@Teen" OnValidSubmit="HandleValidSubmit">
+
+    <h3>Edit Teen</h3>
+    <hr />
+    <ValidationSummary />
+    <div class="form-group row">
+        <label for="Name" class="col-sm-2 col-form-label">
+            Name
+        </label>
+        <div class="col-sm-10">
+            <InputText id="Name" class="form-control" placeholder="Name"
+                       @bind-Value="Teen.Name" />
+            <ValidationMessage For="@(() => Teen.Name)" />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>*@

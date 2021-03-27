@@ -64,7 +64,7 @@
 
 <link href="/css/styles.css" rel="stylesheet" type="text/css">
 <h3>GirlsList</h3>
-@if(teens == null)
+@if(Teens == null)
 {
     <div class="spinner"> </div>
 }
@@ -72,7 +72,7 @@ else
 {
 <div>
     <h1>@DisplayTime()</h1>
-    @foreach (var teen in teens)
+    @foreach (var teen in Teens)
     {
         <div class="card m-3" style="min-width: 18rem; max-width: 30.5%;">
             <div class="card-header">

@@ -1,4 +1,5 @@
 using HostelGirls.Api.Models;
+using HostelGirls.Web.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,6 +36,7 @@ namespace HostelGirls.Api
                         options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
             services.AddControllers();
             services.AddScoped<ITeenRepository, TeenRepository>();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HostelGirls.Api", Version = "v1" });

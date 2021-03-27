@@ -40,7 +40,7 @@
         </div>
 
         <div class="sorter">
-            <img src="@Randomize().Img" class="left sort image">
+            @*<img src="@Randomize().Img" class="left sort image">*@
 
             <div class="starting start button">Touhou Project Character Sorter<br><br>Click to Start!</div>
             <div class="starting load button">Load <span></span></div>
@@ -55,7 +55,7 @@
             <div class="finished getimg button">Generate Image</div>
             <div class="finished list button">Generate Text List</div>
 
-            <img src="@Randomize().Img" class="right sort image">
+            @*<img src="@Randomize().Img" class="right sort image">*@
 
             <div class="left sort text"><p></p></div>
             <div class="right sort text"><p></p></div>
@@ -100,7 +100,7 @@
 
 </html>
 
-@code{
+@*@code{
     Teen Randomize()
     {
         var rand = new Random();
@@ -114,4 +114,4 @@
         var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
         return teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
     }
-}
+}*@

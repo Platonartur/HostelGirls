@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Syncfusion.Blazor;
 using HostelGirls.Web.Services;
+using HostelGirls.Web.Models;
 
 namespace HostelGirls.Web
 {
@@ -29,6 +30,8 @@ namespace HostelGirls.Web
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddAutoMapper(typeof(TeenProfile));
+
             services.AddHttpClient<ITeenService, TeenService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44369/");

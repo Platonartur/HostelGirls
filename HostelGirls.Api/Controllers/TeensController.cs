@@ -53,18 +53,15 @@ namespace HostelGirls.Api.Controllers
                     "Error retrieving data from the database");
             }
         }
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Teen>> UpdateTeen(int id, Teen teen)
+        [HttpPut(/*"{id}"*/)]
+        public async Task<ActionResult<Teen>> UpdateTeen(Teen teen)
         {
             try
-            {
-                if (id != teen.TeenId)
-                    return BadRequest("Teen ID mismatch");
-
-                var teenToUpdate = await teenRepository.GetTeen(id);
+            {              
+                var teenToUpdate = await teenRepository.GetTeen(teen.TeenId);
 
                 if (teenToUpdate == null)
-                    return NotFound($"Employee with Id = {id} not found");
+                    return NotFound($"Employee with Id = {teen.TeenId} not found");
 
                 return await teenRepository.UpdateTeen(teen);
             }

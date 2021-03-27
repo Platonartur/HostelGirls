@@ -41,6 +41,7 @@ namespace HostelGirls.Api.Models
                 result.Img = teen.Img;
                 result.ImgName = teen.ImgName;
 
+                
                 await appDbContext.SaveChangesAsync();
 
                 return result;

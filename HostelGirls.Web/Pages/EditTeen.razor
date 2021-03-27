@@ -1,0 +1,223 @@
+﻿@page "/editteen/{id}"
+
+@inherits EditTeenBase
+
+
+
+@*@inject IJSRuntime JSRuntime*@
+
+@*<h1>JS Interop</h1>
+
+<h3>Create alert</h3>
+
+<button class="btn " @onclick="Randomize" > <img alt="" src="@Randomize().Result.Img" style="vertical-align:middle" /></button>
+
+<br />
+
+<h3>Create alert</h3>
+
+<input @bind="questionText" />
+
+<button class="btn btn-warning" @onclick="AskQuestion">Ask question</button>
+
+
+<div>
+    The answer was: <span id="answerSpan"></span>
+</div>
+
+
+
+
+<h3>Give me random int</h3>
+
+<div>
+    The random number is: <span id="ranomNumberSpan"></span>
+</div>
+
+<button class="btn btn-info" onclick="giveMeRandomInt().Img"> Randomize</button>*@
+
+@code{
+
+    //string questionText = string.Empty;
+    //ElementReference InputToFocus;
+
+
+
+    //async Task AskQuestion()
+    //{
+    //    var response = await JSRuntime.InvokeAsync<string>("createPrompt", questionText);
+    //    await JSRuntime.InvokeVoidAsync("setElementTextById", "answerSpan", response);
+    //}
+
+    //async Task ShowAlert()
+    //{
+
+    //    await JSRuntime.InvokeVoidAsync("createAlert");
+    //}
+
+    //private async Task UpdateData()
+    //{
+    //    string sql = "update ";
+
+
+    //}
+
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    string select = "select * from Teens";
+
+    //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //[JSInvokable]
+    //async Task<Teen> GenerateRandomInt()
+    //{
+    //    var rand = new Random();
+    //    var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+    //    var newteens = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+    //    void Mouse_Click(MouseEventArgs e)
+    //    {
+    //        Task.FromResult(newteens.Number++);
+    //    }
+    //    async Task IncrementCount(MouseEventArgs e)
+    //    {
+    //        Task.FromResult(newteens.Number++);
+    //    }
+    //    return newteens;
+    //}
+
+    //public Task<Teen> Increment1(MouseEventArgs e)
+    //{
+    //    var rand = new Random();
+    //    var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+    //    var newteens = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+    //    newteens.Number++;
+    //    return Task.FromResult(newteens);
+    //}
+
+    //[JSInvokable]
+    //public Task<Teen> GenerateRandomTeen()
+    //{
+    //    return Task.FromResult(Randomize());
+    //}
+
+    int i=0;
+    [JSInvokable]
+    public async Task<Teen> GenerateRandomTeen()
+    {
+        Randomize().Result.Number = Randomize().Result.Number + i;
+        return await Randomize();
+    }
+    public async Task<int> RandomNumber()
+    {
+        return Randomize().Result.Number++;
+    }
+
+
+}
+
+@code{
+    async Task<Teen> Randomize()
+    {
+        var rand = new Random();
+        var tempList = TeensStatic.Teens.ToList() ?? (await TeenService.GetTeens()).ToList();
+        int teensCount = tempList.Count() - 1;
+
+
+        var teensC = tempList[rand.Next(0, teensCount)];
+
+        return teensC;
+    }
+    public class StaticTeens
+    {
+        public static IEnumerable<Teen> Teens;
+    }
+
+    //Teen Randomize()
+    //{
+    //    if (teens == null)
+    //    {
+    //        return null;
+    //    }
+    //    else
+    //    {
+    //        var rand = new Random();
+    //        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+    //        var newteens = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+
+    //        newteens.Number++;
+
+    //        return newteens;
+    //    }
+    //}
+
+
+
+
+    //private int currentCount = 0;
+
+    //private async Task IncrementCount(MouseEventArgs e)
+    //{
+    //    await Task.Delay(500);
+    //    if (e.CtrlKey == true) currentCount = currentCount + 10;
+    //    else currentCount++;
+    //}
+}
+
+
+<EditForm Model="@Teen" OnValidSubmit="HandleValidSubmit">
+    
+    <h3>Edit Teen</h3>
+    <hr />
+    <ValidationSummary />
+    <div class="form-group row">
+        <label for="Name" class="col-sm-2 col-form-label">
+            Name
+        </label>
+        <div class="col-sm-10">
+            <InputText id="Name" class="form-control" placeholder="Name"
+                       @bind-Value="Teen.Name" />
+            <ValidationMessage For="@(() => Teen.Name)" />
+
+            @*<InputNumber id="name" class="form-control" placeholder="Name" @bind-Value="Teen.Name" />
+                <button onclick="Teen.Number++">gsdf</button>*@
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>
+
+
+    
+
+
+@*<EditForm Model="@Teen" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ObjectGraphDataAnnotationsValidator />
+    <h3>Edit Teen</h3>
+    <hr />
+    <ValidationSummary />
+    <div class="form-group row">
+        <label for="firstName" class="col-sm-2 col-form-label">
+            First Name
+        </label>
+        <div class="col-sm-10">
+            <InputNumber id="number" @bind-Value="Teen.Number" />
+            <ValidationMessage For="@(() => Teen.Number)" />
+            <InputText id="Name" class="form-control" placeholder="Name"
+                       @bind-Value="Teen.Name" />
+            <ValidationMessage For="@(() => Teen.Name)" />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>*@

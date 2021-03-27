@@ -1,6 +1,55 @@
-﻿@page "/example"
-<h3>Example</h3>
+﻿@page "/exmaple"
+<h3>example</h3>
+@inherits EditTeenBase
+@using Microsoft.AspNetCore.Components.Web
 
-@code {
-    
+<EditForm Model="@Teen" OnValidSubmit="HandleValidSubmit">
+    @*<ObjectGraphDataAnnotationsValidator />*@
+    <h3>Edit Teen</h3>
+    <hr />
+    <ValidationSummary />
+    <div class="form-group row">
+        <label for="Name" class="col-sm-2 col-form-label">
+            Name
+        </label>
+        <div class="col-sm-10">
+            <InputText id="Name" class="form-control" placeholder="Name"
+                       @bind-Value="Teen.Name" />
+            <ValidationMessage For="@(() => Teen.Name)" />
+
+            @*<InputNumber id="name" class="form-control" placeholder="Name" @bind-Value="Teen.Name" />
+                <button onclick="Teen.Number++">gsdf</button>*@
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>
+
+<button class="btn " @onclick="GenerateRandomTeen"> <img alt="" src="@Randomize().Result.Img" style="vertical-align:middle" /></button>
+
+@code{
+    public class StaticTeens
+    {
+        public static IEnumerable<Teen> Teens;
+    }
+
+    async Task<Teen> Randomize()
+    {
+        var rand = new Random();
+        var tempList = StaticTeens.Teens.ToList() ?? (await TeenService.GetTeens()).ToList();
+        int teensCount = tempList.Count() - 1;
+
+
+        var teensC = tempList[rand.Next(0, teensCount)];
+
+        return teensC;
+    }
+    int i = 1;
+
+    [JSInvokable]
+    public async Task<Teen> GenerateRandomTeen()
+    {
+        //Randomize().Result.Number = Randomize().Result.Number + i;
+        return await Randomize();
+    }
+
 }

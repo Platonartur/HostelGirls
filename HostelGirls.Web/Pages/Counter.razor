@@ -7,7 +7,8 @@
 
 <h3>Create alert</h3>
 
-<button class="btn " @onclick="ShowAlert"> <img alt="" src="@Randomize().Img" style="vertical-align:middle" />Show alert</button>
+<button class="btn " @onclick="GenerateRandomTeen"> <img alt="" src="@Randomize().Result.Img" style="vertical-align:middle" /></button>
+
 <br />
 
 <h3>Create alert</h3>
@@ -47,68 +48,128 @@
 
     async Task ShowAlert()
     {
+
         await JSRuntime.InvokeVoidAsync("createAlert");
     }
 
-    [JSInvokable]
-    async Task<Teen> GenerateRandomInt()
+    private async Task UpdateData()
     {
-        var rand = new Random();
-        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
-        var newteens = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
-        void Mouse_Click(MouseEventArgs e)
-        {
-            Task.FromResult(newteens.Number++);
-        }
-        async Task IncrementCount(MouseEventArgs e)
-        {
-            Task.FromResult(newteens.Number++);
-        }
-        return newteens;
+        string sql = "update ";
+
+
     }
 
-    public Task<Teen> Increment1(MouseEventArgs e)
+    protected override async Task OnInitializedAsync()
     {
-        var rand = new Random();
-        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
-        var newteens = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
-        newteens.Number++;
-        return Task.FromResult(newteens);
+        string select = "select * from Teens";
+
     }
+    //[JSInvokable]
+    //async Task<Teen> GenerateRandomInt()
+    //{
+    //    var rand = new Random();
+    //    var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+    //    var newteens = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+    //    void Mouse_Click(MouseEventArgs e)
+    //    {
+    //        Task.FromResult(newteens.Number++);
+    //    }
+    //    async Task IncrementCount(MouseEventArgs e)
+    //    {
+    //        Task.FromResult(newteens.Number++);
+    //    }
+    //    return newteens;
+    //}
+
+    //public Task<Teen> Increment1(MouseEventArgs e)
+    //{
+    //    var rand = new Random();
+    //    var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+    //    var newteens = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+    //    newteens.Number++;
+    //    return Task.FromResult(newteens);
+    //}
+
+    //[JSInvokable]
+    //public Task<Teen> GenerateRandomTeen()
+    //{
+    //    return Task.FromResult(Randomize());
+    //}
 
     [JSInvokable]
-    public Task<Teen> GenerateRandomTeen()
+    public async Task<Teen> GenerateRandomTeen()
     {
-        return Task.FromResult(Randomize());
+        return await Randomize();
     }
 
 
 }
 
 @code{  
-    Teen Randomize()
-    {
-        if (teens == null)
-        {
-            return null;
-        }
-        else
-        {
-            var rand = new Random();
-            var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
-            var newteens = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
-
-            newteens.Number++;
-
-            return newteens;
-        }
-    }
-    Teen Randomize1()
+    async Task<Teen> Randomize()
     {
         var rand = new Random();
-        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
-        return teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+        var tempList = TeensStatic.Teens.ToList() ?? (await TeenService.GetTeens()).ToList();
+        int teensCount = tempList.Count() - 1;
+
+
+        var teensC = tempList[rand.Next(0, teensCount)];
+
+        return teensC;
     }
+
+   
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Teen Randomize()
+    //{
+    //    if (teens == null)
+    //    {
+    //        return null;
+    //    }
+    //    else
+    //    {
+    //        var rand = new Random();
+    //        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
+    //        var newteens = teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+
+    //        newteens.Number++;
+
+    //        return newteens;
+    //    }
+    //}
+
 
 
 
