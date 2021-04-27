@@ -1,40 +1,39 @@
 ﻿@page "/editteen/{id}"
 
 @inherits EditTeenBase
-
-
+@using Microsoft.Data.SqlClient
 
 @*@inject IJSRuntime JSRuntime*@
 
 @*<h1>JS Interop</h1>
 
-<h3>Create alert</h3>
+    <h3>Create alert</h3>
 
-<button class="btn " @onclick="Randomize" > <img alt="" src="@Randomize().Result.Img" style="vertical-align:middle" /></button>
+    <button class="btn " @onclick="Randomize" > <img alt="" src="@Randomize().Result.Img" style="vertical-align:middle" /></button>
 
-<br />
+    <br />
 
-<h3>Create alert</h3>
+    <h3>Create alert</h3>
 
-<input @bind="questionText" />
+    <input @bind="questionText" />
 
-<button class="btn btn-warning" @onclick="AskQuestion">Ask question</button>
-
-
-<div>
-    The answer was: <span id="answerSpan"></span>
-</div>
+    <button class="btn btn-warning" @onclick="AskQuestion">Ask question</button>
 
 
+    <div>
+        The answer was: <span id="answerSpan"></span>
+    </div>
 
 
-<h3>Give me random int</h3>
 
-<div>
-    The random number is: <span id="ranomNumberSpan"></span>
-</div>
 
-<button class="btn btn-info" onclick="giveMeRandomInt().Img"> Randomize</button>*@
+    <h3>Give me random int</h3>
+
+    <div>
+        The random number is: <span id="ranomNumberSpan"></span>
+    </div>
+
+    <button class="btn btn-info" onclick="giveMeRandomInt().Img"> Randomize</button>*@
 
 @code{
 
@@ -112,16 +111,15 @@
     //    return Task.FromResult(Randomize());
     //}
 
-    int i=0;
-    [JSInvokable]
+
+    //[JSInvokable]
     public async Task<Teen> GenerateRandomTeen()
     {
-        Randomize().Result.Number = Randomize().Result.Number + i;
         return await Randomize();
     }
     public async Task<int> RandomNumber()
     {
-        return Randomize().Result.Number++;
+        return Randomize().Result.Number;
     }
 
 
@@ -138,6 +136,14 @@
         var teensC = tempList[rand.Next(0, teensCount)];
 
         return teensC;
+    }
+
+    [Parameter]
+    public EventCallback<int> TeenNumberChanged { get; set; }
+
+    private async Task UpdateTeenNumberChanged()
+    {
+        await TeenNumberChanged.InvokeAsync(Randomize().Result.Number);
     }
     public class StaticTeens
     {
@@ -176,8 +182,8 @@
 }
 
 
-<EditForm Model="@Teen" OnValidSubmit="HandleValidSubmit">
-    
+<!--<EditForm Model="@Teen" OnValidSubmit="HandleValidSubmit">
+
     <h3>Edit Teen</h3>
     <hr />
     <ValidationSummary />
@@ -188,36 +194,38 @@
         <div class="col-sm-10">
             <InputText id="Name" class="form-control" placeholder="Name"
                        @bind-Value="Teen.Name" />
-            <ValidationMessage For="@(() => Teen.Name)" />
+            <ValidationMessage For="@(() => Teen.Name)" />-->
 
             @*<InputNumber id="name" class="form-control" placeholder="Name" @bind-Value="Teen.Name" />
                 <button onclick="Teen.Number++">gsdf</button>*@
-        </div>
+        <!--</div>
     </div>
     <button class="btn btn-primary" type="submit">Submit</button>
-</EditForm>
+
+</EditForm>-->
+
+<button class="btn" @onclick="HandleValidSubmit"> <img alt="" src="@Randomize().Result.Img" style="vertical-align:middle" />SAVEDATA</button>
 
 
-    
 
 
 @*<EditForm Model="@Teen" OnValidSubmit="HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ObjectGraphDataAnnotationsValidator />
-    <h3>Edit Teen</h3>
-    <hr />
-    <ValidationSummary />
-    <div class="form-group row">
-        <label for="firstName" class="col-sm-2 col-form-label">
-            First Name
-        </label>
-        <div class="col-sm-10">
-            <InputNumber id="number" @bind-Value="Teen.Number" />
-            <ValidationMessage For="@(() => Teen.Number)" />
-            <InputText id="Name" class="form-control" placeholder="Name"
-                       @bind-Value="Teen.Name" />
-            <ValidationMessage For="@(() => Teen.Name)" />
+        <DataAnnotationsValidator />
+        <ObjectGraphDataAnnotationsValidator />
+        <h3>Edit Teen</h3>
+        <hr />
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="firstName" class="col-sm-2 col-form-label">
+                First Name
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="number" @bind-Value="Teen.Number" />
+                <ValidationMessage For="@(() => Teen.Number)" />
+                <InputText id="Name" class="form-control" placeholder="Name"
+                           @bind-Value="Teen.Name" />
+                <ValidationMessage For="@(() => Teen.Name)" />
+            </div>
         </div>
-    </div>
-    <button class="btn btn-primary" type="submit">Submit</button>
-</EditForm>*@
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </EditForm>*@

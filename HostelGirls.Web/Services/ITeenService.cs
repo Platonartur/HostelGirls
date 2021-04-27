@@ -11,8 +11,10 @@ namespace HostelGirls.Web.Services
         Task<IEnumerable<Teen>> GetTeens();
         Task<Teen> GetTeen(int id);
         Task<Teen> UpdateTeen(Teen updatedTeen);
-
         
+
+        //Task UpdateNumberTeen(int number);
+
 
 
         //Task<Teen> UpdateTeenNumber(int number);

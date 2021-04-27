@@ -100,18 +100,41 @@
 
 </html>
 
-@*@code{
-    Teen Randomize()
+@code{
+    async Task<Teen> Randomize()
     {
         var rand = new Random();
-        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
-        var teens1 = teens.ToArray();
-        return teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+        var tempList = TeensStatic.Teens.ToList() ?? (await TeenService.GetTeens()).ToList();
+        int teensCount = tempList.Count() - 1;
+
+
+        var teensC = tempList[rand.Next(0, teensCount)];
+
+        return teensC;
     }
-    Teen Randomize1()
+
+    [Parameter]
+    public EventCallback<int>
+    TeenNumberChanged
+    { get; set; }
+
+    private async Task UpdateTeenNumberChanged()
     {
-        var rand = new Random();
-        var teensrandomize = teens.OrderBy(order => rand.Next()).ToArray();
-        return teensrandomize[rand.Next(0, teensrandomize.Count() - 1)];
+        await TeenNumberChanged.InvokeAsync(Randomize().Result.Number+1);
     }
-}*@
+    public class StaticTeens
+    {
+        public static IEnumerable<Teen> Teens;
+    }
+
+
+    int i = 1;
+    [JSInvokable]
+    public async Task<Teen> GenerateRandomTeen()
+    {
+        Randomize().Result.Number = Randomize().Result.Number + i;
+        return await Randomize();
+    }
+}
+
+<button class="btn" @onclick="UpdateTeenNumberChanged"> <img alt="" src="@Randomize().Result.Img" style="vertical-align:middle" />SAVEDATA</button>

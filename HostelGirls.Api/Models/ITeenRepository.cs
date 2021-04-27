@@ -1,4 +1,5 @@
 ﻿using GirlsRanking.Girls;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace HostelGirls.Api.Models
         Task<IEnumerable<Teen>> GetTeens();
         Task<Teen> GetTeen(int teenId);
         Task<Teen> UpdateTeen(Teen teen);
+        
     }
 }

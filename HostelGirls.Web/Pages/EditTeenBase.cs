@@ -16,8 +16,18 @@ namespace HostelGirls.Web.Pages
         public ITeenService TeenService { get; set; }
 
         public Teen Teen { get; set; } = new Teen();
-       
 
+        async Task<Teen> Randomize(Teen teen)
+        {
+            var rand = new Random();
+            var tempList = TeensStatic.Teens.ToList() ?? (await TeenService.GetTeens()).ToList();
+            int teensCount = tempList.Count() - 1;
+
+
+            var teensC = tempList[rand.Next(0, teensCount)];
+
+            return teensC;
+        }
         [Parameter]
         public string Id { get; set; }
 
@@ -30,16 +40,21 @@ namespace HostelGirls.Web.Pages
         protected async override Task OnInitializedAsync()
         {
             Teen = await TeenService.GetTeen(int.Parse(Id));
+            //Teen = (Teen)await TeenService.GetTeens();
+            
         }
 
         protected async Task HandleValidSubmit()
         {
+            
             var result = await TeenService.UpdateTeen(Teen);
+            
             if(result != null)
             {
                 NavigationManager.NavigateTo("/");
             }
         }
+        
 
         //protected async Task NewHandleValidSubmit()
         //{

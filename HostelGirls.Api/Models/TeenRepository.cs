@@ -1,4 +1,5 @@
 ﻿using GirlsRanking.Girls;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,13 @@ namespace HostelGirls.Api.Models
         }
 
 
+        
         public async Task<IEnumerable<Teen>> GetTeens()
         {
             return await appDbContext.Teens.ToListAsync();
         }
-
+        
+        
         public async Task<Teen> GetTeen(int teenId)
         {
             return await appDbContext.Teens
@@ -30,24 +33,26 @@ namespace HostelGirls.Api.Models
 
         public async Task<Teen> UpdateTeen(Teen teen)
         {
+            
             var result = await appDbContext.Teens
-                .FirstOrDefaultAsync(e => e.TeenId == teen.TeenId);
+                    .FirstOrDefaultAsync(e => e.TeenId == teen.TeenId);
 
             if (result != null)
-            {
-                result.Number = teen.Number;
+            { 
+                result.Number = teen.Number + 1;
                 result.Id = teen.Id;
                 result.Name = teen.Name;
                 result.Img = teen.Img;
                 result.ImgName = teen.ImgName;
 
-                
-                await appDbContext.SaveChangesAsync();
 
-                return result;
+                 await appDbContext.SaveChangesAsync();
+
+                 return result;
             }
-
-            return null;
+            
+            return null;           
         }
+        
     }
 }

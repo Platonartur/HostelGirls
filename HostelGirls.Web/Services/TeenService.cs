@@ -32,12 +32,18 @@ namespace HostelGirls.Web.Services
         {
             return await httpClient.PutJsonAsync<Teen>("api/teens", updatedTeen);
         }
+        public async Task<int> UpdateNumberTeen(int number)
+        {
+            return await httpClient.PutJsonAsync<int>("api/teens", number);
+        }
+        
+
 
         //public async Task<Teen> UpdateNewTeen(int number)
         //{
         //    return await httpClient.PutJsonAsync<Teen>("api/teens", number);
         //}
-        
+
 
 
         //public async Task<Teen> UpdateTeenNumber(int number)
